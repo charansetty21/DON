@@ -1,0 +1,30 @@
+# Python virtual environments
+venv/
+.venv/
+don-tts/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# AI models
+models/
+
+# Audio
+*.wav
+
+# macOS
+.DS_Store
+
+# Environment
+.env
+
+# Logs
+logs/
+*.log
+
+# VS Code
+.vscode/
+
+# DON
+notes.txt
