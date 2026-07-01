@@ -1,5 +1,6 @@
 import requests
-from brain.memory.store import get_memory, add_memory
+
+from brain.memory import get_memory, add_memory
 from brain.tools.router import run_tool
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
@@ -25,11 +26,18 @@ def chat(text: str) -> str:
 
     else:
         # -----------------------------
-        # 2. Otherwise ask Ollama
+        # 2. Load conversation memory
         # -----------------------------
         memory = get_memory()
-        memory_text = "\n".join(memory[-10:])
 
+        memory_text = "\n".join(
+            f"{msg['role'].capitalize()}: {msg['content']}"
+            for msg in memory[-10:]
+        )
+
+        # -----------------------------
+        # 3. Build prompt
+        # -----------------------------
         prompt = f"""
 {SYSTEM_PROMPT}
 
@@ -40,21 +48,26 @@ User: {text}
 DON:
 """
 
+        # -----------------------------
+        # 4. Ask Ollama
+        # -----------------------------
         response = requests.post(
             OLLAMA_URL,
             json={
                 "model": MODEL,
                 "prompt": prompt,
-                "stream": False
-            }
+                "stream": False,
+            },
         )
+
+        response.raise_for_status()
 
         final_reply = response.json()["response"].strip()
 
     # -----------------------------
-    # 3. Save memory
+    # 5. Save conversation
     # -----------------------------
-    add_memory(f"User: {text}")
-    add_memory(f"DON: {final_reply}")
+    add_memory("user", text)
+    add_memory("assistant", final_reply)
 
     return final_reply

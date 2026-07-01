@@ -1,5 +1,5 @@
-from brain.llm import chat
 
+from brain.planner import execute_intent
 
 def run_don():
     print("=" * 50)
@@ -24,7 +24,7 @@ def run_don():
             print("DON: Goodbye Boss.")
             break
 
-        reply = chat(user_input)
+        reply = execute_intent(user_input)
         print(f"DON: {reply}")
 
 

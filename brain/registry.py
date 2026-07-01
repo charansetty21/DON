@@ -9,20 +9,43 @@ def register_tool(
     examples: list,
     function,
 ):
-    """
-    Register a tool.
-    """
-
     TOOLS[name] = {
+        "name": name,
         "description": description,
         "examples": examples,
         "function": function,
     }
 
 
-def get_tools():
+def get_tool(name):
+    return TOOLS.get(name)
+
+
+def get_all_tools():
     return TOOLS
 
 
-def get_tool(name):
-    return TOOLS.get(name)
+def list_tool_descriptions():
+    """
+    Returns a formatted list of all tools.
+    """
+
+    output = ""
+
+    for tool in TOOLS.values():
+
+        output += f"""
+Tool: {tool['name']}
+
+Description:
+{tool['description']}
+
+Examples:
+"""
+
+        for example in tool["examples"]:
+            output += f"- {example}\n"
+
+        output += "\n"
+
+    return output

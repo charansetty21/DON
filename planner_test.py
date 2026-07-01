@@ -1,9 +1,14 @@
-from brain.planner import detect_intent
+from brain.ai_planner import choose_tool
 
 while True:
+
     text = input("You: ")
 
-    if text.lower() == "exit":
+    if text == "exit":
         break
 
-    print("Intent:", detect_intent(text))
+    print()
+
+    print("Planner:", choose_tool(text))
+
+    print()

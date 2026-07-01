@@ -1,13 +1,7 @@
-# brain/executor.py
-
 from brain.registry import get_tool
 
 
-def execute(tool_name, user_input):
-    """
-    Execute a registered tool.
-    """
-
+def execute(tool_name, user_input=""):
     tool = get_tool(tool_name)
 
     if tool is None:

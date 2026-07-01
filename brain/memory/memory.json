@@ -144,5 +144,7 @@
   "User: Can you show my notes?",
   "DON: Boss, I don't have access to your personal notes or files. Could you clarify which specific notes you're referring to? Are you looking for a summary of our previous discussions (e.g., Python decorators, MCP explanations), or do you need help organizing/structuring your own notes?",
   "User: can you show my notes",
-  "DON: Boss, I don\u2019t have access to your personal notes or files. Could you clarify if you\u2019re referring to:  \n1. A summary of our previous discussions (e.g., MCP details, Python topics), or  \n2. A request to organize/structure your own notes?  \n\nLet me know how I can assist!"
+  "DON: Boss, I don\u2019t have access to your personal notes or files. Could you clarify if you\u2019re referring to:  \n1. A summary of our previous discussions (e.g., MCP details, Python topics), or  \n2. A request to organize/structure your own notes?  \n\nLet me know how I can assist!",
+  "User: Can you remember that my meeting is tomorrow?",
+  "DON: Boss, I don\u2019t have access to your calendar or reminders. Could you share the meeting details (time, agenda, participants) so I can help you prepare or set a reminder?"
 ]
