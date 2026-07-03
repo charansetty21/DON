@@ -1,39 +1,13 @@
-"""
-DON Tool Registry
-
-Every tool registers itself here.
-
-The registry stores:
-
-- name
-- description
-- parameters
-- function
-"""
-
 TOOLS = {}
 
 
-def register(
-    name: str,
-    description: str,
-    parameters: dict,
-    function,
-):
+def register(name, description="", parameters=None, function=None):
     """
     Register a tool.
-
-    Example:
-
-    register(
-        name="open_application",
-        description="Open an installed application",
-        parameters={
-            "app":"Application name"
-        },
-        function=open_application
-    )
     """
+
+    if parameters is None:
+        parameters = {}
 
     TOOLS[name] = {
         "name": name,
@@ -43,13 +17,15 @@ def register(
     }
 
 
-def get_tool(name: str):
+def get_tool(name):
+    """
+    Return a registered tool.
+    """
     return TOOLS.get(name)
 
 
 def get_tools():
+    """
+    Return all registered tools.
+    """
     return TOOLS
-
-
-def list_tools():
-    return list(TOOLS.keys())

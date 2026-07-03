@@ -1,9 +1,6 @@
 from brain.ai_planner import plan
 
-while True:
-    text = input("You: ")
 
-    if text == "exit":
-        break
+response = plan("What time is it?")
 
-    print(plan(text))
+print(response)

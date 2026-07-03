@@ -1,13 +1,6 @@
-from brain.tools.tool_registry import get_tools
+from brain.tools.tool_registry import get_tool
 
-# Import tool modules so they register themselves
-import brain.tools.system_tools
-import brain.tools.file_tools
-import brain.tools.note_tools
-import brain.tools.web_tools
-import brain.tools.app_tools
-
-
+import brain.tools
 def run_tool(user_input: str):
     text = user_input.lower()
 

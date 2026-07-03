@@ -1,90 +1,77 @@
 import json
-import re
 import requests
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
+from brain.tools.tool_registry import list_tools
+
+OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL = "qwen3:8b"
+
 
 SYSTEM_PROMPT = """
 You are DON's planning engine.
 
-Your ONLY job is to decide whether the user's request needs:
+Your job is to decide whether the user needs a tool.
 
-1. chat
-2. tool
+Available actions:
 
-Rules:
+1. tool
+2. chat
 
-- Greetings -> chat
-- General questions -> chat
-- Requests to open apps -> tool
-- File operations -> tool
-- Notes -> tool
-- Web searches -> tool
-- System commands -> tool
+Return ONLY valid JSON.
 
-Reply ONLY with JSON.
+Example:
 
-Examples:
+{
+    "action":"tool",
+    "tool":"current_time",
+    "arguments":{}
+}
 
-User: Hello
-{"action":"chat"}
+Example:
 
-User: Open Chrome
-{"action":"tool"}
-
-User: What time is it?
-{"action":"tool"}
+{
+    "action":"chat"
+}
 """
 
 
-def clean_json(text: str) -> str:
-    """
-    Remove markdown code fences if the model returns them.
-    """
-    text = text.strip()
+def build_prompt(user_input: str):
 
-    text = re.sub(r"^```json", "", text, flags=re.IGNORECASE)
-    text = re.sub(r"^```", "", text)
-    text = re.sub(r"```$", "", text)
+    tools = json.dumps(
+        list_tools(),
+        indent=2,
+    )
 
-    return text.strip()
+    return f"""
+{SYSTEM_PROMPT}
+
+Available Tools:
+
+{tools}
+
+User Request:
+
+{user_input}
+
+JSON:
+"""
 
 
 def plan(user_input: str):
-    messages = [
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
+
+    prompt = build_prompt(user_input)
+
+    response = requests.post(
+        OLLAMA_URL,
+        json={
+            "model": MODEL,
+            "prompt": prompt,
+            "stream": False,
         },
-        {
-            "role": "user",
-            "content": user_input
-        }
-    ]
+    )
 
-    try:
-        response = requests.post(
-            OLLAMA_URL,
-            json={
-                "model": MODEL,
-                "messages": messages,
-                "stream": False
-            },
-            timeout=60
-        )
+    response.raise_for_status()
 
-        response.raise_for_status()
+    text = response.json()["response"].strip()
 
-        reply = response.json()["message"]["content"]
-
-        reply = clean_json(reply)
-
-        return json.loads(reply)
-
-    except Exception as e:
-        print("[AI Planner Error]", e)
-
-        return {
-            "action": "chat"
-        }
+    return text
