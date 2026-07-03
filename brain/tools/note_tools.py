@@ -1,7 +1,7 @@
 import os
 
 from brain.tools.tool_registry import register
-from brain.registry import register_tool
+
 NOTES_FILE = "notes.txt"
 
 
@@ -9,13 +9,17 @@ NOTES_FILE = "notes.txt"
 # ADD NOTE
 # =====================================================
 
-def add_note(user_input: str):
-    note = user_input[len("add note"):].strip()
+def add_note(note: str):
+    """
+    Save a note to the notes file.
+    """
+
+    note = note.strip()
 
     if not note:
         return "Boss, what should I save?"
 
-    with open(NOTES_FILE, "a") as file:
+    with open(NOTES_FILE, "a", encoding="utf-8") as file:
         file.write(note + "\n")
 
     return "Boss, note saved."
@@ -25,14 +29,18 @@ def add_note(user_input: str):
 # SHOW NOTES
 # =====================================================
 
-def show_notes(user_input: str):
+def show_notes():
+    """
+    Display all saved notes.
+    """
+
     if not os.path.exists(NOTES_FILE):
         return "Boss, no notes found."
 
-    with open(NOTES_FILE, "r") as file:
-        notes = file.read()
+    with open(NOTES_FILE, "r", encoding="utf-8") as file:
+        notes = file.read().strip()
 
-    if not notes.strip():
+    if not notes:
         return "Boss, your notes are empty."
 
     return notes
@@ -42,42 +50,40 @@ def show_notes(user_input: str):
 # CLEAR NOTES
 # =====================================================
 
-def clear_notes(user_input: str):
-    with open(NOTES_FILE, "w"):
+def clear_notes():
+    """
+    Delete all saved notes.
+    """
+
+    with open(NOTES_FILE, "w", encoding="utf-8"):
         pass
 
     return "Boss, all notes cleared."
 
 
-register_tool(
+# =====================================================
+# REGISTER TOOLS
+# =====================================================
+
+register(
     name="add_note",
     description="Save a note for the user.",
-    examples=[
-        "add note buy milk",
-        "remember buy milk",
-        "save this note"
-    ],
+    parameters={
+        "note": "Text to save as a note"
+    },
     function=add_note,
 )
 
-register_tool(
+register(
     name="show_notes",
     description="Display all saved notes.",
-    examples=[
-        "show notes",
-        "show my notes",
-        "display notes"
-    ],
+    parameters={},
     function=show_notes,
 )
 
-register_tool(
+register(
     name="clear_notes",
-    description="Delete all notes.",
-    examples=[
-        "clear notes",
-        "delete all notes",
-        "remove notes"
-    ],
+    description="Delete all saved notes.",
+    parameters={},
     function=clear_notes,
 )

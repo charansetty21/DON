@@ -7,8 +7,12 @@ from brain.tools.tool_registry import register
 # CREATE FILE
 # =====================================================
 
-def create_file(user_input: str):
-    filename = user_input[len("create file"):].strip()
+def create_file(filename: str):
+    """
+    Create an empty file.
+    """
+
+    filename = filename.strip()
 
     if not filename:
         return "Boss, please provide a filename."
@@ -16,7 +20,7 @@ def create_file(user_input: str):
     if os.path.exists(filename):
         return f"Boss, '{filename}' already exists."
 
-    with open(filename, "w"):
+    with open(filename, "w", encoding="utf-8"):
         pass
 
     return f"Boss, created '{filename}'."
@@ -26,8 +30,12 @@ def create_file(user_input: str):
 # READ FILE
 # =====================================================
 
-def read_file(user_input: str):
-    filename = user_input[len("read file"):].strip()
+def read_file(filename: str):
+    """
+    Read a file.
+    """
+
+    filename = filename.strip()
 
     if not filename:
         return "Boss, please provide a filename."
@@ -35,7 +43,7 @@ def read_file(user_input: str):
     if not os.path.exists(filename):
         return f"Boss, '{filename}' does not exist."
 
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         content = file.read()
 
     if not content.strip():
@@ -48,18 +56,17 @@ def read_file(user_input: str):
 # WRITE FILE
 # =====================================================
 
-def write_file(user_input: str):
-    command = user_input[len("write file"):].strip()
+def write_file(filename: str, content: str):
+    """
+    Write content to a file.
+    """
 
-    parts = command.split(" ", 1)
+    filename = filename.strip()
 
-    if len(parts) != 2:
-        return "Usage: write file <filename> <content>"
+    if not filename:
+        return "Boss, please provide a filename."
 
-    filename = parts[0]
-    content = parts[1]
-
-    with open(filename, "w") as file:
+    with open(filename, "w", encoding="utf-8") as file:
         file.write(content)
 
     return f"Boss, wrote to '{filename}'."
@@ -69,8 +76,12 @@ def write_file(user_input: str):
 # DELETE FILE
 # =====================================================
 
-def delete_file(user_input: str):
-    filename = user_input[len("delete file"):].strip()
+def delete_file(filename: str):
+    """
+    Delete a file.
+    """
+
+    filename = filename.strip()
 
     if not filename:
         return "Boss, please provide a filename."
@@ -87,19 +98,22 @@ def delete_file(user_input: str):
 # RENAME FILE
 # =====================================================
 
-def rename_file(user_input: str):
-    command = user_input[len("rename file"):].strip()
-
-    if " to " not in command:
-        return "Usage: rename file <old_name> to <new_name>"
-
-    old_name, new_name = command.split(" to ", 1)
+def rename_file(old_name: str, new_name: str):
+    """
+    Rename a file.
+    """
 
     old_name = old_name.strip()
     new_name = new_name.strip()
 
+    if not old_name or not new_name:
+        return "Boss, please provide both filenames."
+
     if not os.path.exists(old_name):
         return f"Boss, '{old_name}' does not exist."
+
+    if os.path.exists(new_name):
+        return f"Boss, '{new_name}' already exists."
 
     os.rename(old_name, new_name)
 
@@ -110,8 +124,12 @@ def rename_file(user_input: str):
 # CREATE FOLDER
 # =====================================================
 
-def create_folder(user_input: str):
-    folder_name = user_input[len("create folder"):].strip()
+def create_folder(folder_name: str):
+    """
+    Create a folder.
+    """
+
+    folder_name = folder_name.strip()
 
     if not folder_name:
         return "Boss, please provide a folder name."
@@ -125,12 +143,90 @@ def create_folder(user_input: str):
 
 
 # =====================================================
+# LIST FILES
+# =====================================================
+
+def list_files(path: str = "."):
+    """
+    List files in a directory.
+    """
+
+    if not os.path.exists(path):
+        return f"Boss, '{path}' does not exist."
+
+    files = os.listdir(path)
+
+    if not files:
+        return "Boss, no files found."
+
+    return "\n".join(sorted(files))
+
+
+# =====================================================
 # REGISTER TOOLS
 # =====================================================
 
-register("create file", create_file)
-register("read file", read_file)
-register("write file", write_file)
-register("delete file", delete_file)
-register("rename file", rename_file)
-register("create folder", create_folder)
+register(
+    name="create_file",
+    description="Create a new file.",
+    parameters={
+        "filename": "Name of the file"
+    },
+    function=create_file,
+)
+
+register(
+    name="read_file",
+    description="Read a text file.",
+    parameters={
+        "filename": "Name of the file"
+    },
+    function=read_file,
+)
+
+register(
+    name="write_file",
+    description="Write text into a file.",
+    parameters={
+        "filename": "Name of the file",
+        "content": "Text to write"
+    },
+    function=write_file,
+)
+
+register(
+    name="delete_file",
+    description="Delete a file.",
+    parameters={
+        "filename": "Name of the file"
+    },
+    function=delete_file,
+)
+
+register(
+    name="rename_file",
+    description="Rename a file.",
+    parameters={
+        "old_name": "Existing file name",
+        "new_name": "New file name"
+    },
+    function=rename_file,
+)
+
+register(
+    name="create_folder",
+    description="Create a new folder.",
+    parameters={
+        "folder_name": "Name of the folder"
+    },
+    function=create_folder,
+)
+
+register(
+    name="list_files",
+    description="List files in a directory.",
+    parameters={
+        "path": "Directory path (optional)"
+    },
+    function=list_files,
+)

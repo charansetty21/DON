@@ -1,43 +1,90 @@
+import json
+import re
 import requests
 
-from brain.registry import list_tool_descriptions
-
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL = "qwen3:8b"
 
+SYSTEM_PROMPT = """
+You are DON's planning engine.
 
-def choose_tool(user_input):
+Your ONLY job is to decide whether the user's request needs:
 
-    tools = list_tool_descriptions()
+1. chat
+2. tool
 
-    prompt = f"""
-You are DON's Planner.
+Rules:
 
-Available tools:
+- Greetings -> chat
+- General questions -> chat
+- Requests to open apps -> tool
+- File operations -> tool
+- Notes -> tool
+- Web searches -> tool
+- System commands -> tool
 
-{tools}
+Reply ONLY with JSON.
 
-Choose ONLY ONE tool.
+Examples:
 
-Return ONLY the tool name.
+User: Hello
+{"action":"chat"}
 
-If no tool matches return:
+User: Open Chrome
+{"action":"tool"}
 
-chat
-
-User:
-
-{user_input}
+User: What time is it?
+{"action":"tool"}
 """
 
-    response = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": MODEL,
-            "prompt": prompt,
-            "stream": False,
-        },
-        timeout=60,
-    )
 
-    return response.json()["response"].strip()
+def clean_json(text: str) -> str:
+    """
+    Remove markdown code fences if the model returns them.
+    """
+    text = text.strip()
+
+    text = re.sub(r"^```json", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^```", "", text)
+    text = re.sub(r"```$", "", text)
+
+    return text.strip()
+
+
+def plan(user_input: str):
+    messages = [
+        {
+            "role": "system",
+            "content": SYSTEM_PROMPT
+        },
+        {
+            "role": "user",
+            "content": user_input
+        }
+    ]
+
+    try:
+        response = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": MODEL,
+                "messages": messages,
+                "stream": False
+            },
+            timeout=60
+        )
+
+        response.raise_for_status()
+
+        reply = response.json()["message"]["content"]
+
+        reply = clean_json(reply)
+
+        return json.loads(reply)
+
+    except Exception as e:
+        print("[AI Planner Error]", e)
+
+        return {
+            "action": "chat"
+        }

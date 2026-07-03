@@ -9,23 +9,28 @@ def load_memory():
         return []
 
     with open(MEMORY_FILE, "r") as f:
-        return json.load(f)
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
 
 
-def save_memory(messages):
+def save_memory(memory):
     with open(MEMORY_FILE, "w") as f:
-        json.dump(messages, f, indent=2)
+        json.dump(memory, f, indent=2)
 
 
 def add_memory(role: str, content: str):
-    messages = load_memory()
+    memory = load_memory()
 
-    messages.append({
-        "role": role,
-        "content": content
-    })
+    memory.append(
+        {
+            "role": role,
+            "content": content
+        }
+    )
 
-    save_memory(messages)
+    save_memory(memory)
 
 
 def get_memory():

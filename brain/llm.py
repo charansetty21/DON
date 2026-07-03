@@ -1,9 +1,10 @@
+import time
 import requests
 
 from brain.memory import get_memory, add_memory
 from brain.tools.router import run_tool
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL = "qwen3:8b"
 
 SYSTEM_PROMPT = """
@@ -16,57 +17,71 @@ Be helpful, concise, and professional.
 
 
 def chat(text: str) -> str:
-    # -----------------------------
-    # 1. Check if a tool can handle it
-    # -----------------------------
+    # --------------------------------------------------
+    # 1. Check whether a tool can handle the request
+    # --------------------------------------------------
     tool_result = run_tool(text)
 
     if tool_result is not None:
         final_reply = f"Boss, {tool_result}"
 
     else:
-        # -----------------------------
-        # 2. Load conversation memory
-        # -----------------------------
-        memory = get_memory()
+        # --------------------------------------------------
+        # 2. Load conversation history
+        # --------------------------------------------------
+        messages = get_memory()
 
-        memory_text = "\n".join(
-            f"{msg['role'].capitalize()}: {msg['content']}"
-            for msg in memory[-10:]
+        # Only keep the latest 20 messages
+        messages = messages[-20:]
+
+        chat_messages = [
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            }
+        ]
+
+        chat_messages.extend(messages)
+
+        chat_messages.append(
+            {
+                "role": "user",
+                "content": text
+            }
         )
 
-        # -----------------------------
-        # 3. Build prompt
-        # -----------------------------
-        prompt = f"""
-{SYSTEM_PROMPT}
+        print(f"[LLM] Sending {len(chat_messages)} messages to Ollama...")
 
-Conversation History:
-{memory_text}
+        # --------------------------------------------------
+        # 3. Send request to Ollama
+        # --------------------------------------------------
+        start = time.time()
 
-User: {text}
-DON:
-"""
-
-        # -----------------------------
-        # 4. Ask Ollama
-        # -----------------------------
         response = requests.post(
             OLLAMA_URL,
             json={
                 "model": MODEL,
-                "prompt": prompt,
-                "stream": False,
+                "messages": chat_messages,
+                "stream": False
             },
         )
 
-        response.raise_for_status()
+        elapsed = time.time() - start
+        print(f"[LLM] Ollama response time: {elapsed:.2f} sec")
 
-        final_reply = response.json()["response"].strip()
+        if response.status_code != 200:
+            print("\n========== OLLAMA ERROR ==========")
+            print("Status:", response.status_code)
+            print("Response:", response.text)
+            print("==================================\n")
+            return "Boss, Ollama returned an error."
 
-    # -----------------------------
-    # 5. Save conversation
-    # -----------------------------
+        data = response.json()
+        final_reply = data["message"]["content"].strip()
+
+    # --------------------------------------------------
+    # 4. Save conversation
+    # --------------------------------------------------
     add_memory("user", text)
     add_memory("assistant", final_reply)
 

@@ -1,19 +1,18 @@
-class ConversationMemory:
-    """
-    Stores the recent conversation between the user and DON.
-    """
+from .storage import load_memory, save_memory
 
+
+class ConversationMemory:
     def __init__(self, max_messages=20):
         self.max_messages = max_messages
-        self.messages = []
+        self.messages = load_memory()
 
     def add_user_message(self, content):
-        self._add_message("user", content)
+        self._add("user", content)
 
     def add_assistant_message(self, content):
-        self._add_message("assistant", content)
+        self._add("assistant", content)
 
-    def _add_message(self, role, content):
+    def _add(self, role, content):
         self.messages.append(
             {
                 "role": role,
@@ -22,13 +21,13 @@ class ConversationMemory:
         )
 
         if len(self.messages) > self.max_messages:
-            self.messages.pop(0)
+            self.messages = self.messages[-self.max_messages:]
 
-    def get_history(self):
+        save_memory(self.messages)
+
+    def get_messages(self):
         return self.messages.copy()
 
     def clear(self):
-        self.messages.clear()
-
-    def __len__(self):
-        return len(self.messages)
+        self.messages = []
+        save_memory(self.messages)

@@ -1,51 +1,19 @@
-# brain/registry.py
-
 TOOLS = {}
 
 
-def register_tool(
-    name: str,
-    description: str,
-    examples: list,
-    function,
-):
-    TOOLS[name] = {
-        "name": name,
-        "description": description,
-        "examples": examples,
-        "function": function,
-    }
+def register(name: str, function):
+    """
+    Register a tool using a unique tool name.
+    """
+    TOOLS[name] = function
 
 
-def get_tool(name):
+def get_tool(name: str):
+    """
+    Get a tool by name.
+    """
     return TOOLS.get(name)
 
 
-def get_all_tools():
+def get_tools():
     return TOOLS
-
-
-def list_tool_descriptions():
-    """
-    Returns a formatted list of all tools.
-    """
-
-    output = ""
-
-    for tool in TOOLS.values():
-
-        output += f"""
-Tool: {tool['name']}
-
-Description:
-{tool['description']}
-
-Examples:
-"""
-
-        for example in tool["examples"]:
-            output += f"- {example}\n"
-
-        output += "\n"
-
-    return output
