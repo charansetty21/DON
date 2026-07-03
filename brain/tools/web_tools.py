@@ -1,39 +1,33 @@
+from services.tavily_service import search_web
 from brain.tools.tool_registry import register
 
-from services.tavily_service import search_and_summarize
-
 
 # =====================================================
-# SEARCH
+# WEB SEARCH
 # =====================================================
 
-def search(user_input: str):
+def web_search(query: str):
+    """
+    Search the web using Tavily.
+    """
 
-    query = user_input[len("search"):].strip()
+    query = query.strip()
 
     if not query:
-        return "Boss, what should I search for?"
+        return "Boss, what would you like me to search?"
 
-    return search_and_summarize(query)
-
-
-# =====================================================
-# RESEARCH
-# =====================================================
-
-def research(user_input: str):
-
-    query = user_input[len("research"):].strip()
-
-    if not query:
-        return "Boss, what should I research?"
-
-    return search_and_summarize(query)
+    return search_web(query)
 
 
 # =====================================================
 # REGISTER TOOLS
 # =====================================================
 
-register("search", search)
-register("research", research)
+register(
+    name="web_search",
+    description="Search the web for current information.",
+    parameters={
+        "query": "Search query"
+    },
+    function=web_search,
+)
