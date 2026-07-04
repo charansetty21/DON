@@ -5,60 +5,229 @@ from brain.tools.tool_resolver import resolve_tool
 def execute_plan(plan):
     """
     Executes a plan returned by the planner.
-
-    Plan format:
-    {
-        "action": "chat" | "tool",
-        "message": "...",
-        "tool": "...",
-        "arguments": {}
-    }
     """
 
-    action = plan.get("action")
+    # -------------------------
+    # CHAT ACTION
+    # -------------------------
+    if plan.get("action") == "chat":
+        return plan.get("message", "I am not sure how to help with that.")
 
     # -------------------------
-    # CHAT
+    # TOOL ACTION
     # -------------------------
-    if action == "chat":
-        return plan.get(
-            "message",
-            "I am not sure how to help with that."
+    tool_name = resolve_tool(plan.get("tool"))
+
+    if not tool_name:
+        return "No tool specified in plan."
+
+    tool = get_tool(tool_name)
+
+    if tool is None:
+        return f"Tool '{tool_name}' not found."
+
+    function = tool.get("function")
+
+    if function is None:
+        return f"Tool '{tool_name}' has no executable function."
+
+    arguments = plan.get("arguments", {})
+
+    # =====================================================
+    # NOTES NORMALIZATION
+    # =====================================================
+
+    if tool_name == "create_note":
+
+        text = (
+            arguments.get("text")
+            or arguments.get("note")
+            or arguments.get("content")
+            or ""
         )
 
-    # -------------------------
-    # TOOL
-    # -------------------------
-    if action == "tool":
+        arguments = {
+            "text": text
+        }
 
-        # Resolve LLM tool aliases
-        tool_name = resolve_tool(plan.get("tool"))
+    elif tool_name == "delete_note":
 
-        if not tool_name:
-            return "No tool specified in plan."
+        index = (
+            arguments.get("index")
+            or arguments.get("note_id")
+            or 1
+        )
 
-        tool = get_tool(tool_name)
+        arguments = {
+            "index": index
+        }
 
-        if tool is None:
-            return f"Tool '{tool_name}' not found."
+    elif tool_name == "search_notes":
 
-        function = tool.get("function")
+        keyword = (
+            arguments.get("keyword")
+            or arguments.get("query")
+            or arguments.get("text")
+            or ""
+        )
 
-        if function is None:
-            return f"Tool '{tool_name}' has no executable function."
+        arguments = {
+            "keyword": keyword
+        }
 
-        arguments = plan.get("arguments", {})
+    # =====================================================
+    # APP NORMALIZATION
+    # =====================================================
 
-        try:
-            if isinstance(arguments, dict):
-                return function(**arguments)
-            else:
-                return function()
+    elif tool_name == "open_app":
 
-        except Exception as e:
-            return f"Execution error in tool '{tool_name}': {e}"
+        name = (
+            arguments.get("name")
+            or arguments.get("app")
+            or arguments.get("application")
+            or arguments.get("tool_name")
+            or ""
+        )
 
-    # -------------------------
-    # UNKNOWN ACTION
-    # -------------------------
-    return f"Unknown action: {action}"
+        arguments = {
+            "name": name
+        }
+
+    # =====================================================
+    # FILE NORMALIZATION
+    # =====================================================
+
+    elif tool_name == "create_file":
+
+        path = (
+            arguments.get("path")
+            or arguments.get("file")
+            or arguments.get("filename")
+            or arguments.get("file_name")
+            or arguments.get("name")
+            or ""
+        )
+
+        arguments = {
+            "path": path
+        }
+
+    elif tool_name == "read_file":
+
+        path = (
+            arguments.get("path")
+            or arguments.get("file")
+            or arguments.get("filename")
+            or arguments.get("file_name")
+            or ""
+        )
+
+        arguments = {
+            "path": path
+        }
+
+    elif tool_name == "write_file":
+
+        path = (
+            arguments.get("path")
+            or arguments.get("file")
+            or arguments.get("filename")
+            or arguments.get("file_name")
+            or arguments.get("name")
+            or ""
+        )
+
+        text = (
+            arguments.get("text")
+            or arguments.get("content")
+            or arguments.get("data")
+            or ""
+        )
+
+        arguments = {
+            "path": path,
+            "text": text
+        }
+
+    elif tool_name == "delete_file":
+
+        path = (
+            arguments.get("path")
+            or arguments.get("file")
+            or arguments.get("filename")
+            or arguments.get("file_name")
+            or arguments.get("name")
+            or ""
+        )
+
+        arguments = {
+            "path": path
+        }
+
+    elif tool_name == "rename_file":
+
+        old_path = (
+            arguments.get("old_path")
+            or arguments.get("source")
+            or arguments.get("from")
+            or ""
+        )
+
+        new_path = (
+            arguments.get("new_path")
+            or arguments.get("destination")
+            or arguments.get("to")
+            or ""
+        )
+
+        arguments = {
+            "old_path": old_path,
+            "new_path": new_path
+        }
+
+    elif tool_name == "copy_file":
+
+        source = (
+            arguments.get("source")
+            or arguments.get("from")
+            or ""
+        )
+
+        destination = (
+            arguments.get("destination")
+            or arguments.get("to")
+            or ""
+        )
+
+        arguments = {
+            "source": source,
+            "destination": destination
+        }
+
+    elif tool_name == "move_file":
+
+        source = (
+            arguments.get("source")
+            or arguments.get("from")
+            or ""
+        )
+
+        destination = (
+            arguments.get("destination")
+            or arguments.get("to")
+            or ""
+        )
+
+        arguments = {
+            "source": source,
+            "destination": destination
+        }
+    # =====================================================
+    # EXECUTE TOOL
+    # =====================================================
+
+    try:
+        return function(**arguments)
+
+    except Exception as e:
+        return f"Execution error in tool '{tool_name}': {str(e)}"

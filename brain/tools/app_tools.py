@@ -1,46 +1,33 @@
-import subprocess
-
+import os
+import platform
 from brain.tools.tool_registry import register
 
 
-APP_MAP = {
-    "chrome": "Google Chrome",
-    "google chrome": "Google Chrome",
-    "google": "Google Chrome",
-    "calculator": "Calculator",
-    "terminal": "Terminal",
-    "vs code": "Visual Studio Code",
-    "vscode": "Visual Studio Code",
-    "notes": "Notes",
-    "calendar": "Calendar",
-    "mail": "Mail",
-}
-
-
-def open_application(app: str):
-    """
-    Open an installed macOS application.
-    """
-
-    app_name = APP_MAP.get(app.lower(), app)
+def open_app(name: str):
+    system = platform.system()
 
     try:
-        subprocess.run(
-            ["open", "-a", app_name],
-            check=True
-        )
+        # macOS
+        if system == "Darwin":
+            os.system(f"open -a '{name}'")
 
-        return f"Opening {app_name}."
+        # Windows
+        elif system == "Windows":
+            os.system(f"start {name}")
 
-    except subprocess.CalledProcessError:
-        return f"Boss, I couldn't find '{app_name}'."
+        # Linux
+        else:
+            os.system(name)
+
+        return f"Opened {name}"
+
+    except Exception as e:
+        return f"Failed to open {name}: {str(e)}"
 
 
 register(
-    name="open_application",
-    description="Open an installed application on macOS.",
-    parameters={
-        "app": "Application name"
-    },
-    function=open_application,
+    name="open_app",
+    description="Open applications like calculator, chrome, vscode",
+    parameters={"name": "application name"},
+    function=open_app,
 )

@@ -354,5 +354,425 @@
     ],
     "pending": [],
     "status": "completed"
+  },
+  "4f0cac6a-4aa3-463c-944f-add3827aafc4": {
+    "id": "4f0cac6a-4aa3-463c-944f-add3827aafc4",
+    "original_input": "create note buy milk",
+    "tasks": [
+      "create note buy milk"
+    ],
+    "completed": [
+      {
+        "task": "create note buy milk",
+        "result": "Execution error in tool 'create_note': create_note() got an unexpected keyword argument 'note'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "91201985-4ad1-4ad4-9152-0e019c57420a": {
+    "id": "91201985-4ad1-4ad4-9152-0e019c57420a",
+    "original_input": "create note buy milk",
+    "tasks": [
+      "create note buy milk"
+    ],
+    "completed": [
+      {
+        "task": "create note buy milk",
+        "result": "Note created."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "cf8d41da-1c6b-42e5-a57b-9a61ba0be1dc": {
+    "id": "cf8d41da-1c6b-42e5-a57b-9a61ba0be1dc",
+    "original_input": "show notes",
+    "tasks": [
+      "show notes"
+    ],
+    "completed": [
+      {
+        "task": "show notes",
+        "result": "1. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "40532a7f-7867-4b81-9eef-12c6052640a5": {
+    "id": "40532a7f-7867-4b81-9eef-12c6052640a5",
+    "original_input": "search notes milk",
+    "tasks": [
+      "search notes milk"
+    ],
+    "completed": [
+      {
+        "task": "search notes milk",
+        "result": "Execution error in tool 'search_notes': search_notes() got an unexpected keyword argument 'query'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "0a41e320-4f04-4f30-ad6c-602adc1bb1ce": {
+    "id": "0a41e320-4f04-4f30-ad6c-602adc1bb1ce",
+    "original_input": "create note buy milk",
+    "tasks": [
+      "create note buy milk"
+    ],
+    "completed": [
+      {
+        "task": "create note buy milk",
+        "result": "Note created."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "3dd150c9-7c25-4179-bae5-301753bf5a19": {
+    "id": "3dd150c9-7c25-4179-bae5-301753bf5a19",
+    "original_input": "show notes",
+    "tasks": [
+      "show notes"
+    ],
+    "completed": [
+      {
+        "task": "show notes",
+        "result": "1. buy milk\n2. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "03bb8178-9ef1-4641-be26-8627e7424901": {
+    "id": "03bb8178-9ef1-4641-be26-8627e7424901",
+    "original_input": "search notes milk",
+    "tasks": [
+      "search notes milk"
+    ],
+    "completed": [
+      {
+        "task": "search notes milk",
+        "result": "1. buy milk\n2. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "808839c2-dbfd-49d1-adb0-472842b4a135": {
+    "id": "808839c2-dbfd-49d1-adb0-472842b4a135",
+    "original_input": "delete note 1",
+    "tasks": [
+      "delete note 1"
+    ],
+    "completed": [
+      {
+        "task": "delete note 1",
+        "result": "1. buy milk\n2. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "26bbdb52-a3dd-406c-811f-a55486e2dfe2": {
+    "id": "26bbdb52-a3dd-406c-811f-a55486e2dfe2",
+    "original_input": "delete note 1",
+    "tasks": [
+      "delete note 1"
+    ],
+    "completed": [
+      {
+        "task": "delete note 1",
+        "result": "Note deleted."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "34a5a594-3d01-44a1-803b-b8a09508a804": {
+    "id": "34a5a594-3d01-44a1-803b-b8a09508a804",
+    "original_input": "show notes",
+    "tasks": [
+      "show notes"
+    ],
+    "completed": [
+      {
+        "task": "show notes",
+        "result": "1. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "43c28767-4de6-4be6-92ca-012a3e3eed80": {
+    "id": "43c28767-4de6-4be6-92ca-012a3e3eed80",
+    "original_input": "create note buy milk",
+    "tasks": [
+      "create note buy milk"
+    ],
+    "completed": [
+      {
+        "task": "create note buy milk",
+        "result": "Execution error in tool 'create_note': create_note() missing 1 required positional argument: 'text'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "4ea9812e-454d-4b93-893c-56e2e2cef7ec": {
+    "id": "4ea9812e-454d-4b93-893c-56e2e2cef7ec",
+    "original_input": "show notes",
+    "tasks": [
+      "show notes"
+    ],
+    "completed": [
+      {
+        "task": "show notes",
+        "result": "1. buy milk"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "00537a00-92ca-4e27-ac17-eb1c11c6f920": {
+    "id": "00537a00-92ca-4e27-ac17-eb1c11c6f920",
+    "original_input": "delete note 1",
+    "tasks": [
+      "delete note 1"
+    ],
+    "completed": [
+      {
+        "task": "delete note 1",
+        "result": "Note deleted."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "2dad9d40-005d-4a2c-ab9e-0031243562c7": {
+    "id": "2dad9d40-005d-4a2c-ab9e-0031243562c7",
+    "original_input": "show notes",
+    "tasks": [
+      "show notes"
+    ],
+    "completed": [
+      {
+        "task": "show notes",
+        "result": "No notes found."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "3b174cc1-b045-479a-a2df-af1faf2b827a": {
+    "id": "3b174cc1-b045-479a-a2df-af1faf2b827a",
+    "original_input": "open calculator",
+    "tasks": [
+      "Open the Calculator application."
+    ],
+    "completed": [
+      {
+        "task": "Open the Calculator application.",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'app'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "f0b25e3f-568d-43c1-9e12-932f50495e3c": {
+    "id": "f0b25e3f-568d-43c1-9e12-932f50495e3c",
+    "original_input": "open calculator",
+    "tasks": [
+      "Open the Calculator application."
+    ],
+    "completed": [
+      {
+        "task": "Open the Calculator application.",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'tool_name'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "911df371-1a81-4091-a255-32050c5d37ad": {
+    "id": "911df371-1a81-4091-a255-32050c5d37ad",
+    "original_input": "open chrome",
+    "tasks": [
+      "open chrome"
+    ],
+    "completed": [
+      {
+        "task": "open chrome",
+        "result": "Opened chrome"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "6f6bc492-9713-404c-8e21-fff1f2e065c5": {
+    "id": "6f6bc492-9713-404c-8e21-fff1f2e065c5",
+    "original_input": "open vscode",
+    "tasks": [
+      "open vscode"
+    ],
+    "completed": [
+      {
+        "task": "open vscode",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'tool_name'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "1ac975e2-c0af-42cb-a7de-12fbe1b4ed7c": {
+    "id": "1ac975e2-c0af-42cb-a7de-12fbe1b4ed7c",
+    "original_input": "open calculator",
+    "tasks": [
+      "Open the Calculator application."
+    ],
+    "completed": [
+      {
+        "task": "Open the Calculator application.",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'application'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "0cbb112c-b250-4bee-9f38-42d44402c99c": {
+    "id": "0cbb112c-b250-4bee-9f38-42d44402c99c",
+    "original_input": "open chrome",
+    "tasks": [
+      "open chrome"
+    ],
+    "completed": [
+      {
+        "task": "open chrome",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'application'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "f47912b7-6ba4-4d14-acfa-2f26a8bc2859": {
+    "id": "f47912b7-6ba4-4d14-acfa-2f26a8bc2859",
+    "original_input": "open vscode",
+    "tasks": [
+      "open vscode"
+    ],
+    "completed": [
+      {
+        "task": "open vscode",
+        "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'app'"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "fe8cd2bb-792b-4c6b-9760-4a32d50b2427": {
+    "id": "fe8cd2bb-792b-4c6b-9760-4a32d50b2427",
+    "original_input": "open calculator",
+    "tasks": [
+      "Open the Calculator application."
+    ],
+    "completed": [
+      {
+        "task": "Open the Calculator application.",
+        "result": "Opened calculator"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "132e3ade-533f-4abe-8a26-e1b48e7576a6": {
+    "id": "132e3ade-533f-4abe-8a26-e1b48e7576a6",
+    "original_input": "open chrome",
+    "tasks": [
+      "open chrome"
+    ],
+    "completed": [
+      {
+        "task": "open chrome",
+        "result": "Opened chrome"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "47a74f28-3aca-4617-bde6-eeeb9b91c2f8": {
+    "id": "47a74f28-3aca-4617-bde6-eeeb9b91c2f8",
+    "original_input": "open vscode",
+    "tasks": [
+      "open vscode"
+    ],
+    "completed": [
+      {
+        "task": "open vscode",
+        "result": "Opened vscode"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "95fbf584-cd60-4861-8d66-1a8d613456d4": {
+    "id": "95fbf584-cd60-4861-8d66-1a8d613456d4",
+    "original_input": "create file test.txt",
+    "tasks": [
+      "create file test.txt"
+    ],
+    "completed": [
+      {
+        "task": "create file test.txt",
+        "result": "File 'test.txt' already exists."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "41899294-b00c-49a6-8856-3e81fb0931fc": {
+    "id": "41899294-b00c-49a6-8856-3e81fb0931fc",
+    "original_input": "write hello boss to test.txt",
+    "tasks": [
+      "write hello boss to test.txt"
+    ],
+    "completed": [
+      {
+        "task": "write hello boss to test.txt",
+        "result": "[Errno 2] No such file or directory: ''"
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "336aac2e-7b3c-4137-a284-924403d2973a": {
+    "id": "336aac2e-7b3c-4137-a284-924403d2973a",
+    "original_input": "write hello boss to test.txt",
+    "tasks": [
+      "write hello boss to test.txt"
+    ],
+    "completed": [
+      {
+        "task": "write hello boss to test.txt",
+        "result": "File 'test.txt' already exists."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
+  },
+  "a470fb2a-6754-45ed-963c-68a676d9ceed": {
+    "id": "a470fb2a-6754-45ed-963c-68a676d9ceed",
+    "original_input": "write hello boss to test.txt",
+    "tasks": [
+      "write hello boss to test.txt"
+    ],
+    "completed": [
+      {
+        "task": "write hello boss to test.txt",
+        "result": "Written to 'test.txt'."
+      }
+    ],
+    "pending": [],
+    "status": "completed"
   }
 }

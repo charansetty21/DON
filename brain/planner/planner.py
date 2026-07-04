@@ -34,23 +34,53 @@ The ONLY valid actions are:
     "arguments":{{}}
 }}
 
-Available tools:
-
-{tool_list}
-
 Rules:
 
-- NEVER use "output".
-- NEVER use "result".
-- NEVER use "notes".
-- NEVER create your own schema.
-- ONLY use action "chat" or "tool".
-- If a tool is needed, the tool name MUST be one of the available tools.
-- Return ONLY JSON.
-- Do not wrap the JSON in markdown.
-- Do not explain anything.
+- Return ONLY valid JSON.
+- Never explain.
+- Never use markdown.
+- Never invent tool names.
+- The tool MUST be one of the available tools.
+
+NOTES
+
+- "create note" -> create_note
+- "add note" -> create_note
+- "show notes" -> show_notes
+- "list notes" -> show_notes
+- "search notes" -> search_notes
+- "find notes" -> search_notes
+- "delete note" -> delete_note
+
+FILES
+
+- "create file" -> create_file
+- "read file" -> read_file
+- "open file" -> read_file
+- "write to file" -> write_file
+- "write ... to file" -> write_file
+- "delete file" -> delete_file
+- "rename file" -> rename_file
+- "copy file" -> copy_file
+- "move file" -> move_file
+
+APPS
+
+- "open calculator" -> open_app
+- "open chrome" -> open_app
+- "open vscode" -> open_app
+
+SYSTEM
+
+- "what time is it" -> current_time
+- "today's date" -> current_date
+- "current directory" -> current_directory
+- "list files" -> list_directory
+
+Return ONLY a JSON object.
 
 User request:
+{user_input}
 {user_input}
 """
 

@@ -254,5 +254,229 @@
     "result": "/Users/charansapple/DON",
     "status": "completed",
     "reason": ""
+  },
+  {
+    "goal": "create note buy milk",
+    "task": "create note buy milk",
+    "plan": "{'action': 'tool', 'tool': 'create_note', 'arguments': {'note': 'buy milk'}}",
+    "result": "Execution error in tool 'create_note': create_note() got an unexpected keyword argument 'note'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "create note buy milk",
+    "task": "create note buy milk",
+    "plan": "{'action': 'tool', 'tool': 'create_note', 'arguments': {'text': 'buy milk'}}",
+    "result": "Note created.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "show notes",
+    "task": "show notes",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "1. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "search notes milk",
+    "task": "search notes milk",
+    "plan": "{'action': 'tool', 'tool': 'search_notes', 'arguments': {'query': 'milk', 'keyword': ''}}",
+    "result": "Execution error in tool 'search_notes': search_notes() got an unexpected keyword argument 'query'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "create note buy milk",
+    "task": "create note buy milk",
+    "plan": "{'action': 'tool', 'tool': 'create_note', 'arguments': {'text': 'buy milk'}}",
+    "result": "Note created.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "show notes",
+    "task": "show notes",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "1. buy milk\n2. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "search notes milk",
+    "task": "search notes milk",
+    "plan": "{'action': 'tool', 'tool': 'search_notes', 'arguments': {'keyword': 'milk'}}",
+    "result": "1. buy milk\n2. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "delete note 1",
+    "task": "delete note 1",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "1. buy milk\n2. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "delete note 1",
+    "task": "delete note 1",
+    "plan": "{'action': 'tool', 'tool': 'delete_note', 'arguments': {'index': 1}}",
+    "result": "Note deleted.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "show notes",
+    "task": "show notes",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "1. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "create note buy milk",
+    "task": "create note buy milk",
+    "plan": "{'action': 'tool', 'tool': 'create_note', 'arguments': {}}",
+    "result": "Execution error in tool 'create_note': create_note() missing 1 required positional argument: 'text'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "show notes",
+    "task": "show notes",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "1. buy milk",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "delete note 1",
+    "task": "delete note 1",
+    "plan": "{'action': 'tool', 'tool': 'delete_note', 'arguments': {'index': 1}}",
+    "result": "Note deleted.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "show notes",
+    "task": "show notes",
+    "plan": "{'action': 'tool', 'tool': 'show_notes', 'arguments': {}}",
+    "result": "No notes found.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open calculator",
+    "task": "Open the Calculator application.",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'app': 'calculator'}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'app'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open calculator",
+    "task": "Open the Calculator application.",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'tool_name': 'calculator', 'name': \"{'tool_name': 'calculator'}\"}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'tool_name'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open chrome",
+    "task": "open chrome",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'name': 'chrome'}}",
+    "result": "Opened chrome",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open vscode",
+    "task": "open vscode",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'tool_name': 'vscode', 'name': \"{'tool_name': 'vscode'}\"}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'tool_name'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open calculator",
+    "task": "Open the Calculator application.",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'application': 'calculator', 'name': 'calculator'}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'application'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open chrome",
+    "task": "open chrome",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'application': 'chrome', 'name': 'chrome'}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'application'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open vscode",
+    "task": "open vscode",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'app': 'vscode', 'name': 'vscode'}}",
+    "result": "Execution error in tool 'open_app': open_app() got an unexpected keyword argument 'app'",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open calculator",
+    "task": "Open the Calculator application.",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'app_name': 'calculator'}}",
+    "result": "Opened calculator",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open chrome",
+    "task": "open chrome",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'app': 'chrome'}}",
+    "result": "Opened chrome",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "open vscode",
+    "task": "open vscode",
+    "plan": "{'action': 'tool', 'tool': 'open_app', 'arguments': {'tool_name': 'vscode'}}",
+    "result": "Opened vscode",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "create file test.txt",
+    "task": "create file test.txt",
+    "plan": "{'action': 'tool', 'tool': 'create_file', 'arguments': {'filename': 'test.txt'}}",
+    "result": "File 'test.txt' already exists.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "write hello boss to test.txt",
+    "task": "write hello boss to test.txt",
+    "plan": "{'action': 'tool', 'tool': 'write_file', 'arguments': {'file_name': 'test.txt', 'text': 'hello boss'}}",
+    "result": "[Errno 2] No such file or directory: ''",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "write hello boss to test.txt",
+    "task": "write hello boss to test.txt",
+    "plan": "{'action': 'tool', 'tool': 'create_file', 'arguments': {'filename': 'test.txt', 'content': 'hello boss'}}",
+    "result": "File 'test.txt' already exists.",
+    "status": "completed",
+    "reason": ""
+  },
+  {
+    "goal": "write hello boss to test.txt",
+    "task": "write hello boss to test.txt",
+    "plan": "{'action': 'tool', 'tool': 'write_file', 'arguments': {'file': 'test.txt', 'text': 'hello boss'}}",
+    "result": "Written to 'test.txt'.",
+    "status": "completed",
+    "reason": ""
   }
 ]

@@ -1,89 +1,137 @@
+import json
 import os
 
 from brain.tools.tool_registry import register
 
-NOTES_FILE = "notes.txt"
+NOTES_FILE = "data/notes.json"
 
 
-# =====================================================
-# ADD NOTE
-# =====================================================
-
-def add_note(note: str):
-    """
-    Save a note to the notes file.
-    """
-
-    note = note.strip()
-
-    if not note:
-        return "Boss, what should I save?"
-
-    with open(NOTES_FILE, "a", encoding="utf-8") as file:
-        file.write(note + "\n")
-
-    return "Boss, note saved."
-
-
-# =====================================================
-# SHOW NOTES
-# =====================================================
-
-def show_notes():
-    """
-    Display all saved notes.
-    """
+def _ensure_notes_file():
+    os.makedirs("data", exist_ok=True)
 
     if not os.path.exists(NOTES_FILE):
-        return "Boss, no notes found."
+        with open(NOTES_FILE, "w") as f:
+            json.dump([], f)
 
-    with open(NOTES_FILE, "r", encoding="utf-8") as file:
-        notes = file.read().strip()
+
+def _load_notes():
+    _ensure_notes_file()
+
+    with open(NOTES_FILE, "r") as f:
+        return json.load(f)
+
+
+def _save_notes(notes):
+    with open(NOTES_FILE, "w") as f:
+        json.dump(notes, f, indent=4)
+
+
+def create_note(text):
+    notes = _load_notes()
+
+def create_note(text):
+    notes = _load_notes()
+
+    # prevent duplicate exact notes
+    if any(n["text"] == text for n in notes):
+        return "Note already exists."
+
+    notes.append({
+        "text": text
+    })
+
+    _save_notes(notes)
+
+    return "Note created."
+    _save_notes(notes)
+
+    return "Note created."
+
+
+def show_notes():
+    notes = _load_notes()
 
     if not notes:
-        return "Boss, your notes are empty."
+        return "No notes found."
 
-    return notes
+    output = []
 
+    for i, note in enumerate(notes, start=1):
+        output.append(f"{i}. {note['text']}")
 
-# =====================================================
-# CLEAR NOTES
-# =====================================================
-
-def clear_notes():
-    """
-    Delete all saved notes.
-    """
-
-    with open(NOTES_FILE, "w", encoding="utf-8"):
-        pass
-
-    return "Boss, all notes cleared."
+    return "\n".join(output)
 
 
-# =====================================================
-# REGISTER TOOLS
-# =====================================================
+def delete_note(index):
+    notes = _load_notes()
+
+    index = int(index) - 1
+
+    if index < 0 or index >= len(notes):
+        return "Invalid note."
+
+    notes.pop(index)
+
+    _save_notes(notes)
+
+    return "Note deleted."
+
+
+def search_notes(keyword):
+    notes = _load_notes()
+
+    results = []
+
+    for i, note in enumerate(notes, start=1):
+        if keyword.lower() in note["text"].lower():
+            results.append(f"{i}. {note['text']}")
+
+    if not results:
+        return "No matching notes."
+
+    return "\n".join(results)
+
 
 register(
-    name="add_note",
-    description="Save a note for the user.",
-    parameters={
-        "note": "Text to save as a note"
-    },
-    function=add_note,
+    name="create_note",
+    description="Create a note.",
+    parameters={"text": "note text"},
+    function=create_note,
 )
 
 register(
     name="show_notes",
-    description="Display all saved notes.",
+    description="Show all notes.",
     parameters={},
     function=show_notes,
 )
 
 register(
-    name="clear_notes",
-    description="Delete all saved notes.",
-    parameters={},
-    function=clear_notes,
+    name="delete_note",
+    description="Delete a note.",
+    parameters={"index": "note number"},
+    function=delete_note,
 )
+
+register(
+    name="search_notes",
+    description="Search notes.",
+    parameters={"keyword": "search text"},
+    function=search_notes,
+)
+def delete_note(index):
+    notes = _load_notes()
+
+    try:
+        index = int(index) - 1
+    except:
+        return "Invalid note index."
+
+    if index < 0 or index >= len(notes):
+        return "Invalid note."
+
+    notes.pop(index)
+
+    _save_notes(notes)
+
+    return "Note deleted."
